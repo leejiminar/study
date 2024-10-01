@@ -1,0 +1,36 @@
+package org.example.network.socketstudy;
+
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.InetAddress;
+import java.net.MulticastSocket;
+
+public class UDPMulticastClient {
+    private static final String MULTICAST_GROUP = "230.0.0.0"; // 멀티캐스트 그룹 주소
+    private static final int PORT = 4446;
+
+    public static void main(String[] args) {
+        try (MulticastSocket socket = new MulticastSocket(PORT)) {
+            InetAddress group = InetAddress.getByName(MULTICAST_GROUP);
+            socket.joinGroup(group);
+
+            byte[] buffer = new byte[1024];
+            DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
+
+            System.out.println("Waiting for multicast message...");
+            while (true) {
+                socket.receive(packet);
+                String received = new String(packet.getData(), 0, packet.getLength());
+                System.out.println("Received message: " + received);
+
+                if ("exit".equalsIgnoreCase(received.trim())) {
+                    break;
+                }
+            }
+
+            socket.leaveGroup(group);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}

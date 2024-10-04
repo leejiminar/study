@@ -1,4 +1,4 @@
-package org.example.network.socketstudy;
+package org.example.socketstudy;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;

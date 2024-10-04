@@ -1,4 +1,4 @@
-package org.example.network.socketstudy;
+package org.example.socketstudy;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,24 +7,23 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 
-public class UDPBroadcastServer {
-    private static final String BROADCAST_IP = "255.255.255.255"; // 브로드캐스트 주소
-    private static final int PORT = 1234;
+public class UDPMulticastServer {
+    private static final String MULTICAST_GROUP = "230.0.0.0"; // 멀티캐스트 그룹 주소
+    private static final int PORT = 4446;
 
     public static void main(String[] args) {
         try (DatagramSocket socket = new DatagramSocket()) {
-            socket.setBroadcast(true);
-            InetAddress broadcastAddress = InetAddress.getByName(BROADCAST_IP);
+            InetAddress group = InetAddress.getByName(MULTICAST_GROUP);
             BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
 
             while (true) {
-                System.out.print("Message to broadcast: ");
+                System.out.print("Enter message: ");
                 String message = keyboard.readLine();
                 byte[] buffer = message.getBytes();
 
-                DatagramPacket packet = new DatagramPacket(buffer, buffer.length, broadcastAddress, PORT);
+                DatagramPacket packet = new DatagramPacket(buffer, buffer.length, group, PORT);
                 socket.send(packet);
-                System.out.println("Broadcast message sent");
+                System.out.println("Message sent to multicast group");
 
                 if ("exit".equalsIgnoreCase(message)) {
                     break;

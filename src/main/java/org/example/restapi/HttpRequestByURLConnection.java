@@ -1,4 +1,4 @@
-package org.example.network.restapi;
+package org.example.restapi;
 
 import java.io.BufferedReader;
 import java.io.IOException;

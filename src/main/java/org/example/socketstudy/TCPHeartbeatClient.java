@@ -1,4 +1,4 @@
-package org.example.network.socketstudy;
+package org.example.socketstudy;
 
 import java.io.*;
 import java.net.*;

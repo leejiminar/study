@@ -1,4 +1,4 @@
-package org.example.network.restapi;
+package org.example.restapi;
 
 import java.io.IOException;
 import java.net.*;

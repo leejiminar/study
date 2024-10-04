@@ -1,0 +1,4 @@
+REST API 의 특징
+1.자원(Resources) - URI
+2.행위(Verb) - HTTP 메서드
+3.표현(Representations) - HTTP 메세지 페이로드

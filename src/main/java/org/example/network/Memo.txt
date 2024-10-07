@@ -1,0 +1,47 @@
+ipconfig
+
+byte = 1 bit = 8 bps = 8
+
+100메가(bps) 인터넷 / 8 = 12.5메가 바이트
+
+IPv4 주소 체계 : 총 32비트의 정보를 가지므로 최대 2^32개, 약 43억개의 고유한 주소를 부여 가능
+표시방법 : 192.28.64.13
+주소 할당 : 클래스 구분에 따른 비순차적 할당(비효율적)
+
+IPv6 주소 치계 : 총 128비트의 정보를 가지므로 최대 43^4개의 고유한 주소를 부여 가능
+표시방법 : 1932:0320:abcd:ffff:0000:0000:ffff:1111
+주소 할당 :
+
+port 번호 :
+21 : FTP
+22 : SSH
+23 : TELNET
+25 : SMTP
+53 : DNS
+80 : HTTP
+443 : HTTPS (HTTP의 보안이 강화된 버젼)
+등록 포트 (1024 ~ 49151) - 국제 도메인 관리기구에 등록
+동적 포트 (49152 ~ 65535) - 임시 포트들. 어떤 프로세스들에게 임의로 사용가능
+
+DNS(Domain Name System) : 도메인 이름과 IP 주소 간의 변환을 처리하는 시스템
+
+네트워크의 종류
+PAN(Personal Area Network) : 개인 휴대기기 사이에서 구성된 무선 연결망
+LAN(Local Area Network) : Local Area Network의 약자로 지역범위의 네트워크를 의미
+MAN(Metropolitan Area Network) : 의 약자로 도시 범위에 네트워크를 의미
+
+네트워크의 통신 방식 :
+유니캐스트 1:1 통신하는 방법
+멀티캐스트 1:N 통신하는 방법
+브로드캐스트 1:그룹 통신하는 방법
+
+OSI 7계층
+ 계층 |    이름    |   단위   |          예시        |           프로토콜(Protocols)         |
+1계층   물리계층    |   Bit   |    전압, 케이블, 허브    |           10BASE-t                |
+2계층 데이터링크계층 |   Frame |   MAC주소, 브리지, 스위치 |         Ethement, Token ring      |
+3계층  네트워크계층  |  Packet |   패킷, 라우터, IP주소   |          IP,IPX,ARP               |
+4계층   전송계층    | TCP-Segment, UDP-Datagram       |  방화벽 및 프록시 서버 TCP, UDP, SCTP |
+5계층   세션계층    |   Data  |                       |           SSL, TLS                |
+6계층   표현계층    |   Data  |인코딩,디코딩,암호화,복호화 |          JPEG,MPEG                |
+7계층   응용계층    |   Data  |구글 크롬, 이메일, 데이터 베이스 관리 |       HTTP,SMTP,SSH      |
+

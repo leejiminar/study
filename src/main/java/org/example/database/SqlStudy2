@@ -1,0 +1,153 @@
+CREATE TABLE rental (
+                        rental_id INT(11),
+                        user_id INT(11),
+                        book_id INT(11)
+);
+
+CREATE TABLE user (
+                      id INT(11),
+                      name VARCHAR(20),
+                      email VARCHAR(50)
+);
+
+DELETE FROM rental;
+INSERT INTO rental (rental_id, user_id, book_id) VALUES
+                                                     (1, 1, 1000),
+                                                     (2, 1, 1001),
+                                                     (3, 3, 1004);
+
+DELETE FROM user;
+INSERT INTO user (id, name, email) VALUES
+                                       (1, 'chanhwan', 'choich@elice.com'),
+                                       (2, 'haesol', 'sunsol@elice.com'),
+                                       (3, 'hyungon', 'gone@elice.com');
+
+
+
+
+
+
+SELECT *
+FROM rental;
+
+SELECT user_id, COUNT(*)
+FROM rental
+GROUP BY user_id;
+
+SELECT user_id, SUM(book_id)
+FROM rental
+GROUP BY user_id;
+
+SELECT user_id, AVG(book_id)
+FROM rental
+GROUP BY user_id;
+
+SELECT user_id, MAX(book_id)
+FROM rental
+GROUP BY user_id;
+
+SELECT user_id, MIN(book_id)
+FROM rental
+GROUP BY user_id;
+
+SELECT user_id, COUNT(*)
+FROM rental
+GROUP BY user_id
+HAVING COUNT(user_id) > 1;
+
+SELECT *
+FROM rental
+/*INNER*/ JOIN user;
+
+SELECT *
+FROM rental
+/*INNER*/ JOIN user
+               ON user.id = rental.user_id;
+
+SELECT *
+FROM user
+         LEFT /*OUTER*/ JOIN rental
+                             ON user.id = rental.user_id;
+
+SELECT *
+FROM user
+         RIGHT /*OUTER*/ JOIN rental
+                              ON user.id = rental.user_id;
+
+
+
+CREATE TABLE department (
+                            id INT PRIMARY KEY,
+                            name VARCHAR(50)
+);
+
+CREATE TABLE employee (
+                          id INT primary KEY,
+                          department_id INT,
+                          name VARCHAR(50),
+                          salary INT,
+                          FOREIGN KEY(department_id) REFERENCES department(id)
+);
+
+INSERT INTO department (id, name) VALUES
+                                      (1, '개발'),
+                                      (2, '품질'),
+                                      (3, '영업');
+
+INSERT INTO employee (id, department_id, name, salary) VALUES
+                                                           (1000, 1, 'elice', 12000),
+                                                           (1001, 2, 'jessica', 9000),
+                                                           (1002, 3, 'steve', 7500),
+                                                           (1003, 1, 'linda', 5500),
+                                                           (1004, 2, 'david', 4400),
+                                                           (1005, 1, 'robert', 3200);
+
+
+
+
+
+SELECT * FROM employee
+WHERE salary > 2500;
+
+SELECT * FROM employee
+WHERE salary > (SELECT salary FROM employee WHERE NAME='elice');
+
+SELECT * FROM employee
+WHERE salary > (SELECT salary FROM employee WHERE id='1002');
+
+SELECT id, name, salary
+FROM employee
+WHERE department_id = ( SELECT department_id
+                        FROM employee
+                        WHERE name = 'elice' );
+
+SELECT * FROM employee
+WHERE salary IN ( SELECT MAX(salary) FROM employee GROUP BY department_id );
+
+SELECT name
+FROM employee
+WHERE department_id IN (SELECT id
+                        FROM department
+                        WHERE name = '품질' OR NAME = '영업');
+
+SELECT name
+FROM employee a
+WHERE EXISTS ( SELECT id
+               FROM employee b
+               WHERE b.salary >= 10000
+                 AND a.department_id = b.department_id);
+
+SELECT name
+FROM employee
+WHERE salary >= ALL( SELECT salary
+                     FROM employee
+                     WHERE department_id = 1);
+
+SELECT name
+FROM employee
+WHERE salary >= ANY( SELECT salary
+                     FROM employee
+                     WHERE department_id = 1);
+
+SELECT NAME, (SELECT COUNT(*) FROM employee e WHERE e.department_id = d.id)
+FROM department d;

@@ -1,0 +1,43 @@
+다양한 DI 방식
+1. 필드 주입 방식
+public class UserService {
+    @Autowired
+    private UserRepository userRepository;
+
+    public void saveUser(String username) {
+        userRepository.save(username);
+    }
+}
+
+2. 수정자 주입 방식
+public class UserService {
+    private UserRepository userRepository;
+
+    // 수정자 주입 방식
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    public void saveUser(String username) {
+        userRepository.save(username);
+    }
+}
+
+3. 생성자 주입 방식
+public class UserService {
+    private UserRepository userRepository;
+
+    // 생성자 주입 방식
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    public void saveUser(String username) {
+        userRepository.save(username);
+    }
+}
+
+IoD/DI의 필요성
+- 낮은 결합도
+- 유지 보수 및 재사용성
+- 테스트 용이성

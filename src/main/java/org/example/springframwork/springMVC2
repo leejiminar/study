@@ -1,0 +1,80 @@
+3 계층 구조
+- Controller -> Service -> Repository(JPA, MyBatis, DAO)
+
+HTTP 요청 데이터
+1.GET - 쿼리 파라미터(쿼리 스트링)
+- URL를 통한 데이터 전달 방식
+- /users?name=elice&age=15
+
+2.POST - HTML FORM
+- 메시지 바디에 쿼리 파라미터 형식으로 전달
+- 회원가입, 상품 주문 등 사용
+
+3.HTTP 메시지 바디
+- HTTP API에서 주로 사용
+- JSON, XML, TEXT 등 -> 주로 JSON 사용
+
+HTTP 응답 데이터
+1. HTML 페이지 출력
+2. PDF, Excel 등 문서 형태 출력
+3. XML, JSON 등 특정 포맷
+
+ResponseEntity(value, header, status 조작 가능)
+
+API 구현해보기 - HTTP 메서드
+Create - POST - 자료를 등록할 때 사용
+Read - GET - 자료를 조회할 때 사용
+Update - PUT/PATCH - 자료의 수정을 요청할 때 사용
+Delete - DELETE - 자료의 삭제를 요청할 때 사용
+
+GET 메서드
+- 서버로부터 리소스를 요청하고 데이터를 조회
+- 데이터 검색, 웹 페이지 로딩 등에 사용
+- 요청 본문 X
+- 요청 URL에 쿼리 파라미터 *를 포함할 수 있음
+
+@RestController
+- RESTful 웹 서비스의 컨트롤러
+- JSON/XML 등의 데이터를 반환
+- @RestController = @Controller + @ResponesBody
+
+PathVariable
+- GET 요청은 파라미터를 전달하기 위해 URL 값을 담아 요청
+- URL에서 담긴 값과 변수를 매핑하기 위해서 사용
+- Ex) localhost:8080/hello/elice
+- @GetMapping value 표현 내 {value}와 @PathCariable 변수 이름이 일치하는 경우 생략 가능
+
+RequestParam
+- GET 요청에서 쿼리 문자열을 전달하기 위해 사용되는 방식
+- URL에서 '?' 우측으로 'key=value'의 형태로 표현하고 복수의 경우 '&'로 연결
+- Ex) localhost:8080/hello?name=elice&animal=rabbit
+- 어떤 값이 들어올지 알고 있는 경우, Key=value가 정해진 경우 파라미터를 매핑 가능
+
+DTO
+- GET 요청에서 쿼리 문자열을 매핑할 때 Key=value가 정해져 있지만 파라미터가 많은 경우 DTO 객체를 사용
+- Body의 Key=value가 정해져 있지만
+
+POST 메서드
+- 서버에 데이터를 전송하여 새로운 데이터를 생성
+- 폼 제출, 파일 업로드, 회원 가입 등에 사용
+- 요청 본문에 데이터 포함
+- 서버의 상태를 변경함
+
+@PostMapping
+- Post API를 호출하는 경우 사용
+- @RequestMapping(method=RequestMethod.POST)
+
+@RequestBody
+- Body에 담겨있는 값을 받기 위해서 사용하는 어노테이션
+
+PUT 메서드
+- 서버에 데이터를 전송하여 리소스를 완전히 대체함
+- PATCH 메서드는 일부 대체
+- 데이터 전체 갱신 시 사용
+- 요청 본문에 데이터 포함
+
+@PutMapping
+- 기본적인 동작 방식은 POST API와 유사함
+- @RequestBody를 통해 값을 받아 동작
+
+DELETE 메서드

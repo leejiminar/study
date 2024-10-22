@@ -1,0 +1,100 @@
+CSS 우선순위와 Cascading
+!important > 인라인 선언 방식 > id 선택자 > class 선택자 > 태그 선택자 > 전체 선택자 *
+텍스트 스타일링 : 폰트
+- font-family 속성을 사용하여 사용할 폰트 지정
+- 여러 개의 폰트를 순차적으로 지정하여 사용자의 컴퓨터에 폰트가 설치되어 있지 않을 경우 대체 폰트로 사용
+
+텍스트 스타일링 : 크기
+- font-size 속성을 사용하여 글꼴의 크기 조정
+- 크기는 픽셀(px), 포인트(pt), 백분율(%), em 단위 등으로 지정 가능
+
+텍스트 스타일링 : 굵기
+- font-weight 속성을 사용하여 글꼴의 굵기 조정 가능
+- normal, bold, bolder, lighter 값을 사용
+- 숫자(100, 200, 300, 400,...)를 사용하기도 함
+
+텍스트 스타일링 : 스타일
+- font-style 속성을 사용하여 텍스트의 스타일 설정 가능
+- 일반적으로 'normal(기본), italic(이탤릭체), oblique(기울임체) 값을 사용
+
+텍스트 정렬과 간격 설정
+- text-align 속성을 사용해 텍스트 정렬
+- left (왼쪽 정렬), center (가운데 정렬), right (오른쪽 정렬), justify (양쪽 정렬) 설정 가능
+- line-height 속성을 사용하여 행간 설정
+- letter-spacing 속성을 사용해 글자 간격 조절 가능
+
+박스 모델
+- Content : 요소의 텍스트나 이미지 등의 실제 내용이 위치하는 영역
+- Padding : 테두리 안쪽에 위치하는 요소의 내부 영역
+- Border : 테두리 영역으로 border 프로퍼티 값은 테두리의 두께를 의미
+- Margin : 테두리(border) 바깥
+
+박스 모델 : Block 요소와 Inline 요소
+Block 요소
+- width : 부모 컨테이너의 전체 너비
+- height : 내부 컨텐츠에 의해 결정
+- 항상 새로운 줄에서 시작(세로 방향으로 쌇임)
+- 상하좌우 margin과 padding 적용 가능
+
+Inline 요소
+- width와 height가 내부 컨텐츠에 의해 자동으로 결정
+- 줄바꿈 하지 않음(가로 방향으로 쌓임)
+- padding은 상하좌우 모두 적용되지만, margin은 상하 적용이 되지 않음 (좌우는 적용됨)
+
+박스 모델 : box-sizing
+- Box-sizing : width, height의 대상 영역 변경 가능
+- Content-box : width, height 프로퍼티 값이 content 영역을 의미 (기본값)
+- border-box : width, height 프로퍼티 값이 content 영역, padding, border가 포함된 값을 의미
+
+박스 모델 : border 적용
+- line-width : border의 굵기
+- line-style : border 스타일 (solid : 실선, dashed : 직사각형 점선, dotted : 원형 점선)
+- color : border 색상
+
+마진 상쇄(Margin Collapsing)
+- 어떤 두 개 이상의 블록 요소의 위 아래의 마진이 겹칠 때, 제일 큰 크기를 가진 단일 마진으로 경합(상쇄)되는 현상
+- 인접해 있는 Block 요소 사이에서만 발생함
+- 상하단의 마진에 관해서만 발생(좌우로는 발생하지 않음)
+
+배경 색상 설정
+- CSS의 background-color 속성을 사용하여 요소의 배경 색상 지정 가능
+- 색상 이름, HEX 코드, RGB 값을 사용하여 색상 지정 가능
+
+그라디언트를 활용한 배경 효과
+- 두 개 이상의 색상을 서서히 혹은 일정 간격으로 변화시키는 배경효과
+- CSS의 선형(linear-gradient), 원형(radial-gradient) 속성을 사용하여 생성 가능
+- 선형 그라디언트 (linear-gradient) : background : linear-gradient(to right, red, blue);
+- 원형 그라디언트 (radial-gradient) : background : gradient(circle, yellow, green);
+
+flex와 grid
+flex
+- 1차원 레이아웃을 위한 도구
+- 주 축과 교차 축을 이용해 더 유연한 레이아웃 생성
+- container와 item 2가지 개념으로 구성
+- display : flex; 설정 후 flex의 다양한 속성을 이용해 자식 요소 배치
+- display : flex = Block 특성의 flex container 정의
+- display : inline-flex = Inline 특성의 flex container 정의
+grid
+- 2차원 레이아웃 위한 도구
+- 행과 열을 이용해 복잡한 레이아웃 구현 가능
+
+레이아웃을 조정하여 다양한 디자인 구현
+- 웹 페이지 디자인의 핵심
+- 웹 페이지의 첫인상 결정
+- 사용자 경험(UX)과 직접 연결
+- 디자인의 목적과 내용에 따른 레이아웃 선택의 중요성
+- Display 속성, Position 등을 이용해 구현 가능
+
+Display 속성
+- None : 화면에서 사라지고 공간을 차지하지도 않음
+- Block : 새로운 줄에서 시작, 가능한 모든 가로 공간 차지
+- Inline : 새 줄을 시작하지 않고, 필요한 만큼의 공간만 차지
+- Inline-block : inline처럼 새 줄을 시작하지 않지만, block 처럼 높이와 너비 지정 가능
+- +Flex, Grid
+
+Position
+- Relative :positioning의 기준이 되는 요소로 지정
+- Absolute : 가장 가까운 relative 조상 요소에 대해 상대적으로 이동
+- Fixed : 뷰포트(Viewport)에 대해 상대적으로 이동
+- Sticky : 스크롤 위치에 따라 상대적, 절대적으로 동작
+- Position을 사용하면 top/right/bottom/left 속성으로 위치 조정 가능

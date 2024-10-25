@@ -1,0 +1,102 @@
+템플릿 엔진
+- 템플릿 양식과 데이터가 합쳐져 HTML 문서를 출력하는 소프트웨어
+- 뷰 코드(HTML)과 데이터 로직 코드(DB Connection)을 분리하는 역할
+
+템플릿 엔진의 필요성
+- HTML에 비해 간단한 문법으로 코드 수 감소
+- 같은 페이지에 데이터만 바뀌는 경우에 활용하여 재사용성 높음
+- 하나의 템플릿으로 여러 페이지를 렌더링 하는 경우가 있어 유지보수 용이
+
+렌더링 주체에 따른 구분
+- 서버 사이드 템플릿 엔진
+- 클라이언트 사이드 템플릿 엔진
+
+서버 사이드 템플릿 엔진
+- 서버에서 구동되는 템플릿 엔진
+- 서버에서 데이터를 미리 정의된 템플릿에 넣어서 HTML을 생성하여 클라이언트에 전달
+- 동작 과정
+1) 클라이언트에서 요청 수신
+2) 서버에서 데이터를 획득(DB or API)
+3) 템플릿에 데이터를 배치
+4) 데이터가 반영된 템플릿으로 HTML을 생성
+5) 생성된 HTML을 클라이언트에 전달
+
+- 대표적인 서버 사이드 템플릿 엔진은 JSP, Thymeleaf, Velocity, Freemarker
+
+클라이언트 사이드 템플릿 엔진
+- 브라우저 위에서 동작하는 템플릿 엔진
+- 브라우저에서 화면을 생성하기 때문에 서버에서는 데이터만 전달하고
+  클라이언트에서는 템플릿에 데이터를 혼합하여 화면 생성
+
+동작 과정
+1) 클라이언트에서 공통적인 프레임을 템플릿으로 생성
+2) 서버에 데이터 요청
+3) 데이터를 템플릿에 배치하고 DOM 객체를 동적으로 그림
+
+대표적인 클라이언트 사이드 템플릿 엔진은 Mustache, Handlebars
+
+Thymeleaf
+- 자바 템플릿 엔진으로 스프링 부트에서 권장하는 서버 사이드 템플릿 엔진
+- Java 애플리케이션에서 HTML 문서 생성
+
+특징
+- 서버 사이드 템플릿 엔진
+- 네츄럴 템플릿: 순수한 HTML을 최대한 유지
+- 스프링 통합 지원: 스프링과 자연스럽게 통합되어 다양한 기능 쉽게 사용 가능
+- 동적 콘텐츠 생성
+- 국제화(18n) 지원
+
+Thymeleaf 기본 문법
+- <html xmlns:th="http://www.thymeleaf.org">
+- 문서 최상단에 다음 코드를 넣어서 사용 가능
+
+Thymeleaf 표현식 : 변수 표현식
+- <p th:text="${userName}">이름</p>
+- 서버에서 전달된 데이터를 HTML로 출력하기 위한 문법
+- 기본 문법: ${변수명}
+
+Thymeleaf 표현식 : 계산 표현식
+- <p th:text="${user.age + 1}">다음 해 나이</p>
+- 수학적 계산이나 메서드 호출을 통해 값을 계산
+- 기본 문법: ${수식}
+
+Thymeleaf 표현식 : 선택 표현식
+- <p th:text="${user.loggedIn ? '환영합니다!' : '로그인 해주세요.'}"></p>
+- 조건에 따라 다른 값을 출력
+- 문법: ${변수 == 값 ? '참일 때 출력' : '거짓일 때 출력'}
+
+Thymeleaf 표현식 : 호출 표현식
+- <p th:text="${user.getFullName()}">전체 이름</p>
+- 조건에 따라 다른 값을 출력
+- 문법: ${객체.메서드()} 또는 ${객체.속성}
+
+Thymeleaf 조건식
+- <div th:if="${user.loggedIn}">
+    ${user.name}님, 환영합니다!
+  </div>
+  <div th:unless="${user.loggedIn}">
+     로그인 하세요.
+  </div>
+- 조건에 따라 HTML 요소의 렌더링 여부를 제어
+- 문법: th:if, th:unless
+
+Thymeleaf 반복문
+- <ul>
+    <li th:each="item : ${itemList}" th:text="${item.name}">아이템 이름</li>
+  </ul>
+- 컬렉션(리스트, 배열 등)의 각 요소를 반복하여 출력
+- 문법: th:each
+
+Thymeleaf 속성 바인딩
+- <a th:href="@{/products/{id}{id=${product.id}}}" th:text="${product.name}">프로덕트 링크k</a>
+  <img th:src="@{${product.imageUrl}}" alt="Product Image"/>
+- HTML 태그의 속성을 동적으로 설정
+- 문법: th:text, th:href, th:src
+
+Thymeleaf 템플릿 조각
+- <div th:replace="fragments/header :: headerFragment"></div>
+- 재사용 가능한 HTML 조각을 정의하고 호출
+- 문법: th:insert, th:replace
+
+Thymeleaf + 스프링 통합
+- pom.xml 또는 build.gradle에 의존성 라이브러리 추가

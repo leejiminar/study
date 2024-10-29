@@ -1,0 +1,69 @@
+데이터 바인딩(Data Binding)이란?
+- 크라이언트 요청 데이터를 Java 객체로 변환하는 과정
+- 사용자 입력을 객체로 쉽게 변환하여 비즈니스 로직 처리
+- 효율성, 유지보수성, 유효성 검사에 용이
+
+HTTP 요청 데이터
+1. GET - 쿼리 파라미터(쿼리 스트링) @RequestParam
+       - URL를 통한 데이터 전달 방식
+       - /user?name=elice&age=15
+2.POST - HTML FORM @ModelAttibute
+       - 메시지 바디에 쿼리 파라미터 형식으로 전달
+       - 회원가입, 상품 주문 등 사용
+3.HTTP 메시지 바디 @RequestBody
+       - HTTP API에서 주로 사용
+       - JSON, XML, TEXT 등 -> 주로 JSON 사용
+
+데이터 바인딩의 흐름
+1. 클라이언트 요청 : 사용자 입력 데이터가 포함된 요청 발생 -> HTML 폼, JSON 데이터 등
+2. 바인딩: Spring이 요청 데이터를 DTO/Model 객체에 자동 매핑
+3. 비즈니스 로직 처리: 매핑된 객체를 사용하여 비즈니스 로직 수행
+4. 응답: 처리 결과를 클라이언트에 반환
+
+HTTP 응답 데이터
+1. HTML 페이지 출력  <---- server @ResponseBody X
+2.PDF, Excel 등 문서 형태 출력
+3.XML, JSON 등 특정 포맷  <---- server @ResponseBody, ResponseEntity O
+
+기본 데이터 바인딩
+- Spring MVC의 @RequestParam 또는 @ModelAttribute 사용
+
+사용자 정의 바인딩 처리
+- 데이터 바인딩 중 오류 발생 시, @InitBinder를 사용하여 사용자 정의 바인딩 처리
+
+유효성 검사란?
+- 사용자로부터 입력받은 데이터가 정의된 기준에 부합하는 지 확인하는 과정
+- 잘못된 데이터로 인한 오류 및 보안 문제를 예방
+
+유효성 검사의 분류
+1. 서버측 유효성 검사
+2. 클라이언트측 유효성 검사
+- 클라이언트측 유효성 검사만으로는 충분하지 못함 - 보완적 도구
+
+유효성 검사의 필요성
+1. 데이터 무결성 보장
+2. 시스템 안정성 확보
+3. 보안 유지
+
+Spring 데이터 유효성 검사
+1. Spring Validation
+2. Bean Validation
+- 스프링에서 유효성 검사를 하기 위한 2 가지 방법
+
+Spring Validation
+- Spring Framework에서 제공하는 데이터 검증 기능
+- 다양한 유효성 검사 규칙을 쉽게 적용하고, 오류 메시지를 처리하는 데 유용
+- Spring MVC와 통합되어 사용됨
+1. Validator 인터페이스 구현
+2. 컨트롤러에서 유효성 검사 수행
+
+Bean Validation
+- Java 표준으로 정의된 유효성 검사 API
+- 객체의 필드에 대한 유효성 검사를 정의하는 어노테이션을 제공
+- Spring에서 JSR-303/JSR-380을 지원하여 Bean Validation을 활용 가능
+- 주요 어노테이션
+1) @NotNull - 필드가 null이 아닌지 검증
+2) @Size(min, max) - 문자열, 배열, 컬렉션의 길이나 크기를 제한
+3) @Min / @Max - 최솟값/최대값 검증
+4) @Pattern - 정규표현식에 맞는 형식인지 검증
+5) @Email - 유효한 이메일 형식인지 검증

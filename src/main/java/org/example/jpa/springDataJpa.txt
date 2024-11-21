@@ -1,0 +1,77 @@
+Spring Data JPA
+- 스프링 프레임워크와 JPA의 통합
+- 데이터베이스 작업의 간소화, 객체-관계 매핑 지원
+- 간판현 CRUD 작업, 쿼리 메서드 지원, 페이징 및 정렬 기능 내장
+
+JpaRepository
+- 데이터베이스 접근을 위한 인터페이스
+- JpaRepository를 상속하여 정의 -> 대상 엔티티와 기본 값 타입 지정
+- 별도의 메서드 구현 없이 많은 편의 기능을 제공
+- JpaRepository는 CrudRepository, PagingAndSortingRepository 등 여러 기능들을 상속
+
+쿼리 메서드
+- 메서드 이름을 기반으로 자동으로 실행되는 쿼리 생성
+- 형식: findBy, countBy, deleteBy 등 접두사 사용
+
+조회 메서드(find)에 조건으로 붙일 수 있는 대표적인 기능
+- findBy: SQL 문의 where 절 역할
+- AND, OR: 조건을 여러 개 설정하기 위한 역할
+- Like/Not Like: SQL문의 like와 동일
+- IsNull/IsNotNull: Null 이거나 Null이 아닌 값을 확인
+- LessThan/GreaterThan: 특정 값을 기준으로 대소 비교 시 사용
+- Between: 두 값 사이에 데이터를 조회
+- OrderBy: SQL 문에서 order by와 동일
+- countBy: SQL 문에서 count와 동일
+
+Pagination은 무엇일까?
+- Dataset을 더 작고 관리하기 쉬운 Chunk로 나누는 기술
+- 웹에 적용해보면, server가 client의 요청에 전체 dataset을 응답하는 것이 아니라, 나눠진 dataset을 응답
+- 지금 보고 있는 페이지에 표시할 데이터만 데이터베이스에서 가져오게 됨
+
+Pagination은 왜 필요할까?
+1.성능
+- 전체 데이터 대신 필요한 데이터만 빠르게 응답할 수 있음
+- 예를 들어, 수심만 개의 데이터를 한 번에 응답한다면?
+  리소스는 많이 사용하게 되고 클라이언트에서는 응답이 매우 느리게 도착함
+
+2.더 나은 UX
+- 사용자에게는 반응이 빠른 인터페이스를 제공. 초기 결과를 빠르게 볼 수 있고 추가 데이터를 요청할 수도 있게 됨
+
+PagingAndSortingRepository
+- 전체 문서들을 개별 페이지로 나누는 Pagination과 정렬하는 Sorting을 사용할 수 있게 함.
+- 즉, 데이터 건수, 시작 위치, 정렬 조건 등을 사용할 수 있음.
+
+@Query
+- 사용자 정의 JPQL 또는 SQL 쿼리를 정의하기 위한 어노테이션
+- 복잡한 쿼리 작성, 성능 최적화에 유용
+
+Native Query
+- Native Query를 사용해 유연하게 쿼리 작성이 가능
+- 세 가지를 염두에 두어야 함
+  1. Spring Data JPA 가 제공하는 특정 DB 종류에 종속되지 않는 장점을 누릴 수 없음
+  2. Pagination을 할 때 추가적인 작업이 필요
+  3. 동적 정렬을 지원하지 않아서 order by와 같이 따로 처리가 필요
+
+Audit(감사) - 엔티티와 관련된 이벤트를 추적하고 기록
+- '감사'는 '감독하고 검사함'이라는 뜻
+- Auditing은 Entity를 감사하는 것처럼 Entity 버전 관리와 관련된 이벤트를 추적하고 기록하는 것
+- 여기서 이벤트는 Entity의 Create, Update, Delete 와 같은 작업
+- 정보 보안, 데이터 관리 측면에서 데이터에 Auditing(감사) 정보를 추가해 기록하게 됨
+- Spring Data JPA에서는 기본적으로 Auditing 정보를 추가하는 기능을 제공
+- 엔티티를 생성하거나 변경한 사람과 이러한 일이 발생한 시점을 투명하게 추적할 수 있게 지원함
+  어노테이션을 통해 엔티티 클래스에 적어주어야 함
+
+Audit 구현
+- Spring Data JPA는 @EntityListeners 어노테이션을 사용해, 자체 JPA 엔티티 리스너 클래스인 AuditingEntityListener를 제공
+- 다음과 같은 설정들로 이벤트 리스너가 Content에 대한 정보를 Auditing 할 수 있게 됨
+- @EnableJpaAuditing 과 @EntityListeners(AuditingEntityListener.class)를 설정해야 함
+
+Base Entity
+- 모든 Entity에 Auditing 설정을 모두 작성하면 중복 코드가 발생하고 관리가 어렵게 됨
+- 때문에 간단히 Auditing 관련 Entity를 생성하고 다른 Entity에서는 이를 상속받게 함
+
+JPAAuditing의 종류
+- @CreatedBy : 엔티티를 생성하는 사용자 정보
+- @CreatedDate : 엔티티가 생성된 시간 (타임스탬프)
+- @LastModifiedBy : 엔티티를 수정한 사용자 정보
+- @LastModifiedDate : 엔티티가 수정된 시간 (타임스템프)

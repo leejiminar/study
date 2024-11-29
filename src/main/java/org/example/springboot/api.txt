@@ -89,3 +89,21 @@ application.properties
 - 기본 서버 설정 방법
 - 방화벽 설정 포트 개방
 - 애플리케이션이 사용하는 리소스(메모리, CPU 등 ) 최적화
+
+
+1. 명령어
+java -Dspring.profiles.active=dev -jar my-app.jar
+
+2. IDE - VM Options 에 추가
+-Dspring.profiles.active=dev
+
+3. application.properties(yml, yaml)
+spring.profiles.active=dev
+
+4. OS 환경 변수로 설정
+리눅스 : export SPRING_PROFILES_ACTIVE=dev
+윈도우(파워쉘) : $env:SPRING_PROFILES_ACTIVE=dev
+-java -jar my-app.jar
+
+5. Docker
+docker run -e SPRING_PROFILES_ACTIVE=dev my-app

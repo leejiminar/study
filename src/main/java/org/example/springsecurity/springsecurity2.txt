@@ -1,0 +1,94 @@
+Spring Security란?
+- Spring Framework 의 보안 모듈로 웹 애플리케이션의 인증과 인가를 담당
+
+인증
+- 사용자가 누구인지 확인하는 과정으로 Spring Security는 사용자가 제공하는 자격을 확인하고 유효한 사용자인지 판단
+- 비밀번호, 2단계 인증(2FA), 생체 인식, 토큰 기반
+- 지식 기반 인증(Something You Know)
+- 소유물 기반 인증 2단계 인증 : 가장 많이 사용하는 2단계 인증인 문자 메시지와 구글 OTP
+- 생체 인증 (Something You Are) : 스마트폰에서 자주 사용하는 지문인식 방식
+
+인가(Authorization)란?
+- 인증된 사용자가 수행할 수 있는 작업의 범위를 결정하는 과정
+
+인가(Authorization) 구현 방법
+- 역할 기반 접근 제어 (RBAC: Role-Based Access Control)
+- 속성 기반 접근 제어 (ABAC: Attribute-Based Access Control)
+- 행위 기반 접근 제어 (PBAC: Policy-Based Access Control)
+
+역할 기반 접근 제어
+- 사용자 역할에 기반하여 접근 권한 부여
+- 단순화, 보안 강화, 최소 권한 원칙 등 여러 이점 제공
+
+속성 기반 접근 제어
+- 사용자, 리소스 환경 등 다양한 속성에 기반하여 접근 권한을 결정하는 더 유연하고 세분화된 접근 방식
+- 정책이 속성과 그 속성들 간의 관계를 기반으로 정의
+
+속성 기반 접근 제어 - 사용사례(AWS IMS)
+- AWS 사용자 및 그룹 생성 및 관리
+- 권한을 통해 AWS 리소스에 대한 엑세스 권한을 부여
+- AWS-IAM 을 사용하여, 사내 데이터 정책(Governance) 에 따라 보안성을 유지
+- 예) 개발팀이 속한 모든 직원은 모든 데이터베이스 접근 가능, 시장분석팀 직원은 마케팅 데이터만 접근 가능
+
+속성 기반 접근 제어 - 사용사례(DB)
+- PostgreSQL 데이터베이스 에서는 RLS를 지원
+- PostgreSQL 의 행수준 보안 정책 구현 질의어
+- SQL의 권한에 따라 모든 행에 접근 가능
+
+행위 기반 접근 제어
+- 사용자의 행동 패턴이나, 시스템의 상태를 기반으로 접근 권한을 부여
+- 동적인 환경에서 유연하게 권한 조정
+- 이상 행동 효과적 대응 가능
+
+행위 기반 접근 제어 - 사용 사례
+- 사용자의 행동 패턴이나, 시스템의 상태를 기반으로 접근 권한을 부여
+- 동적인 환경에서 유연하게 권한 조정
+- 이상 행동 효과적 대응 가능
+- 금융 기관은 사용자 행동 패턴을 분석하여, 비정상적인 활동을 감지하고 계정을 보호함
+- 로그인시간, 위치, IP 주소 및 기기 정보 분석
+- 해외 IP 로그인 차단기능
+- 사용자가 평소 로그인하는 지리적 위치를 기준으로, 해외에서의 접근을 비정상적인 행위로 간주
+
+인증과 인가의 차이
+    항목                   인증                             인가
+    목적              사용자의 신원을 확인             사용자의 접근 권한을 결정
+언제 발생하는가?       리소스 접근 전에 발생            리소스 접근을 시도할 때 발생
+  기술적 구현      사용자명/비밀번호,생체 인증     역할 기반 접근 제어, 정책 기반 접근 제어
+                 , 인증 토큰 등..
+    질문              "당신이 누구입니까?"        "당신이 이 작업을 수행할 수 있습니까?"
+
+Spring Security 의 다양한 설정
+1. Spring Security 환경 설정
+2. 쿠키 기반 인증 설정
+3. 세션 관리 설정
+4. CSRF 설정
+5. HTTPS 설정
+
+Spring Security 환경 설정
+- authorizeRequests() : HttpServletRequest를 사용하는 요청들에 대한 접근 제한 설정
+- antMatchers() : 특정 경로를 지정
+- permitAll() : 모든 사용자에게 접근 권한 혀용
+- anyRequest().authenticated() : 인증되지 않은 모든 요청을 차단하고 인증을 요구
+- formLogin() : 폼 기반 로그인을 사용하도록 설정
+- loginPage() : 사용자 정의 로그인 페이지 경로 지정
+- logout() : 로그아웃 지원
+- rememberMe() : 사용자가 웹 사이트에 다시 방문할 때 로그인 유지
+- key() : rememberMe 쿠키를 생성할 때 사용
+- tokenValiditySeconds() : 토큰 유효 시간 설정 (단위:초)
+- sessionManagement() : 세션 관리 설정 시작
+- sessionFixation().none() : 세션 고정 공격에 대해 아무런 조치를 취하지 않음
+- maximumSessions() : 동시 세션 제어로 사용자당 최대 세션 수 1로 제한
+- maxSessionsPreventsLogin() : 최대 세션 도달 후 추가 로그인 방지하지 않음 false 설정 시 새로운 세션 생성이 허용되며 이전 세션은 만료
+- expiredUrl() : 세션이 만료된 경우, 사용자를 리디렉션할 URL 설정
+
+Spring Security CSRF 설정
+- csrf() : Cross-Site Request Forgery 보호 활성화
+- csrfTokenRepository() : csrf 토큰 쿠키에 저장
+- withHttpOnlyFalse : 생성된 쿠키가 HttpOnly 속성을 false로 설정
+
+Spring Security HTTPS 설정
+- requiresChannel() : HTTP 채널 요구사항 설정
+- anyRequest() : 어떤 요청이던지
+- requiresSecure() : 안전한 채널, 즉 HTTPS를 통해 이루어져야 함을 요구
+
+

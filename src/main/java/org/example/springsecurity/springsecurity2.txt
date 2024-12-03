@@ -91,4 +91,39 @@ Spring Security HTTPS 설정
 - anyRequest() : 어떤 요청이던지
 - requiresSecure() : 안전한 채널, 즉 HTTPS를 통해 이루어져야 함을 요구
 
+Thymeleaf 사용 예제
+<form th:action="@{/submit}" method="post">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+    <button type="submit">Submit</button>
+</form>
+
+JavaScript 예제
+<meta name="_csrf" th:content="${_csrf.token}"/>
+<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+
+// CSRF 토큰을 메타 태그에 저장했다고 가정
+const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute("content");
+const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute("content");
+
+fetch('/submit', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        [csrfHeader]: csrfToken // CSRF 토큰을 헤더에 추가
+    },
+    body: JSON.stringify({ key: 'value' })
+}).then(response => {
+    if (response.ok) {
+        console.log('Request succeeded');
+    } else {
+        console.log('Request failed');
+    }
+});
+
+JSP 사용 예제
+<form action="/submit" method="post">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    <button type="submit">Submit</button>
+</form>
+
 

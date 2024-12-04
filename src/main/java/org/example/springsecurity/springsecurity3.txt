@@ -1,0 +1,92 @@
+스프링 시큐리티 필터와 인증 프로세스
+필터 종류와 역할
+            필터이름                                    설명
+SecurityContextPersistenceFilter        HTTP 요청이 처리될 때 SecurityContext를
+                                        httpSession 에 저장하고 복원하는 역할.
+                                        인증 정보가 요청간에 유지되도록 함
+
+        LogoutFliter                    로그아웃 요청을 감지하고 처리
+
+UsernamePasswordAuthenticationFilter    사용자 이름과 비밀번호 기반의 인증 요청을 처리,
+                                        폼 로그인시 필터 활성화
+
+  DefaultLoginPageGenerationFilter      사용자 정의 로그인 페이지가 없을 시, 기본 로그인 페이지 생성
+
+    BasicAuthenticationFilter           HTTP 기본 인증 헤더를 검사하여, 인증을 수행.
+                                        요청 헤더에서 사용자 이름과 비밀번호를 추출하고, 인증 시도
+
+  RememberMeAuthenticationFilter        "Remember Me"인증 처리. 사용자가 사이트 재방문 시 로그인 유지에 사용
+
+SecurityContextHolderAwareRequestFilter 보안 관련 메소드를 Servlet API 에 통합
+
+    AnonymousAuthenticationFIlter       사용자가 인증되지 않은 경우, 익명 사용자로 인식
+
+    ExceptionTranslationFilter          보안 처리 중 발생하는 예외를 처리하고 적잘한 예외에 따라
+                                        "인증/권한 부여 실패" 페이지로 리다이렉트
+
+    FilterSecurityInterceptor           인증된 요청이 접근 제어 정책에 따라 허용되는지 확인
+                                        접근 결정 관리자를 사용하여, 요청된 URL 접근 허용 결정
+
+SpringSecurityFilter
+- 클라이언트 요청 URI에 따라 필요한 필터 인스턴스와
+  서블릿(Servlet)을 포함하는 필터 체인(Filter Chain)생성
+
+DelegatingFilterProxy
+- 서블릿 컨테이너의 필터와 스프링 애플리케이션 컨텍스트
+  (Spring Application Context) 사이를 연결
+- 서블릿 컨테이너의 필터로서 동작하지만 실제로는 컨텍스트에
+  정의된 빈(Bean)에게 필터 작업을 위임(Delegate)
+- DelegatingFilterProxy는 애플리케이션 컨텍스트에서 Bean Filter를 조회 및 호출
+
+FilterChainProxy
+- FilterChainProxy는 Security에서 제공하는 특수 필터
+- SecurityFilterChain을 통해 여러 필터 인스턴스에 위임할 수 있으나
+  Filter Chain Proxy는 Bean이기 때문에 DelegatingFilterProxy로 래핑되어 사용
+
+SecurityFilterChain
+- SecurityFilterChain 은 현재 요청에 대해 어떤 보안 필터
+  인스턴스를 호출할지 결정하기 위해 FilterChainProxy를 사용
+
+MultipleSecurityFilterChain
+- FilterChainProxy는 어떤 보안 필터 체인을 사용할지 결정
+- SecurityFilterChain.0에서 URL 패턴이 일치하면 호출,
+  일치하는 인스턴스가 없다면 SecurityFilterChain.n 이 호출
+- 각 SecurityFilterChain 은 고유할 수 있고 개별적으로 구성 가능
+
+유저 테이블
+    컬럼명           자료형     Null 허용       키             설명
+     id            BIGINT        N         기본키          일련번호
+    email       VARCHAR(255)     N                         이메일
+  password      VARCHAR(255)     N                    패스워드(암호화 적용)
+
+WebSecurityConfig
+- 스프링 시큐리티 기능 비활성화
+- 특정 HTTP 요청에 대한 웹 기반 보안 구성
+- 인증 및 인가 설정
+- 폼 기반 로그인 및 로그아웃 설정
+- CSRF 보안 설정 비활성화
+- 인증 관리자 관련 설정
+- 사용자 정보 서비스 설정
+- 패스워드 인코더로 사용할 빈 등록
+
+UserService
+- 빌더 패턴을 활용하여 User 객체 생성
+  패스워드 저장시 시큐리티 설정에 등록한 빈을 사용해서 암호화 한 후 저장
+
+UserApiController
+- 회원가입 처리가 된 다음 로그인 페이지로 이동을 위해 redirect 접두사 활용
+- 회원가입 처리가 끝나면 /login URL 에 해당하는 화면으로 이동
+
+UserViewController
+- 로그인 및 회원가입 경로로 접근하면 뷰 파일을 연결하는 컨트롤러 생성
+- /login -> loing.html
+- /signup -> signup.html
+
+로그아웃 기능
+- Controller와 View에 로그아웃 기능 추가
+
+프로젝트 실행 및 테이블 생성 쿼리 확인
+- 로그를 확인해 보면 JPA에서 Hibernate를 통해 테이블 생성 쿼리를 실행
+
+H2 데이터베이스 접근
+- Application.yml에 정의한 H2 데이터베이스 URL로 접속

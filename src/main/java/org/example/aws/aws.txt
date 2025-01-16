@@ -1,0 +1,58 @@
+온프레미스 VS 클라우드
+                       온프레미스                                 클라우드
+비용          초기 구축 및 유지보수 비용이 높음                 비용이 상대적으로 저렴함
+탄력성          탄력적인 확장과 축소가 어려움                 탄력적인 확장과 축소가 용이함
+보안           보안에 대해 완벽한 통제권을 가짐                     보안을 관리해줌
+성능 최적화      성능 최적화의 자유도가 높음               성능 최적화의 자유도가 상대적으로 낮음
+
+클라우드 컴퓨팅 서비스 유형
+- 클라우드 공급자가 관리해주는 범위에 따라 IaaS, Paas, SaaS가 있음
+- IaaS : Infrastructure as a Service
+- PaaS : platform as a Service
+- SaaS : Software as a Service
+
+클라우드 컴퓨팅 서비스 유형
+
+애플리케이션 x              애플리케이션 x            애플리케이션 x             애플리케이션 o
+데이터 x                   데이터 x                 데이터 x                  데이터 o
+런타임 x                   런타임 x                 런타임 o                  런타임 o
+미들웨어 x                 미들웨어 x                미들웨어 o                미들웨어 o
+운영체제 x                 운영체제 x                운영체제 o                운영체제 o
+가상화 x                   가상화 o                 가상화 o                  가상화 o
+서버/스토리지/네트워킹 x      서버/스토리지/네트워킹 o    서버/스토리지/네트워킹 o    서버/스토리지/네트워킹 o
+On-Premise                IaaS                    PaaS                    SaaS
+
+Public Cloud
+- 클라우드 제공자가 구축, 소유, 관리함.
+- 불특정 다수가 사용함.
+- 공유 자원을 가상화를 통해 분리함.
+- 비용이 저렴하며, 확장이 용이함.
+
+Private Cloud
+- 기업 또는 조직이 구축, 소유, 관리함.
+- 특정 사용자만 독립적으로 사용함.
+- 자원이 외부와 공유되지 않음.
+- 비용이 높으며, 확장이 제한적임.
+
+아마존 웹 서비스(AWS)
+- Amazon의 자회사
+- 200개 이상의 다양한 퍼블릭 클라우드 컴퓨팅 서비스를 제공함.
+- 서비스 라인업 : 컴퓨팅, 스토리지, 데이터베이스, 네트워킹 및 콘텐츠 전송, 보안 및 자격 증명 등
+
+AWS 글로벌 클라우드 인프라
+- 2024년 10월 기준, 전세계 34개의 리전과 108개의 가용 영역을 통해 글로벌 클라우드 인프라를 제공함.
+
+리전과 가용 영역
+- 가용 영역(Availability Zone)
+- 물리적으로 분리된 데이터 센터의 집합
+- 리전(Region)
+- 지리적으로 분리된 가용 영역의 집합
+- 리전에 가용영역이 포함됨
+
+https://namu.wiki/w/아마존 웹 서비스
+https://watermelon-sugar.tistory.com/19
+https://jay-din.tistory.com/136
+https://blog.naver.com/businessnow/222425353188
+https://blog.naver.com/lugenzhe/90100646811
+https://www.alibabacloud.co.kr/story-987575-2-2-2-2/
+https://aws.amazon.com/ko/about-aws/global-infrastructure/?p=ngi&loc=1&refid=b088c8c6-1a6b-43e1-90e7-0a44a208e012

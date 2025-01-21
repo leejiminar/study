@@ -1,0 +1,35 @@
+데이터베이스
+- AWS가 구축해둔 데이터베이스 시스템을 사용할 수 있음
+- 예) RDS, Aurora, DynamoDB, ...
+
+RDBMS를 실행할 수 있는 환경을 클라우드로 제공해주는 서비스
+- 다양한 데이터베이스 엔진을 지원함
+- Oracle, MySQL, MariaDB, SQL Server, Amazon Aurora, PostgreSQL 등
+- 데이터베이스 관리를 자동화할 수 있음
+- DB 설치, 유지 관리, 패치 적용, 백업 및 복구 등을 자동화하여 데이터베이스 관리보다는 애플리케이션 개발에 집중할 수 있음
+- 고가용과 페일오버 지원
+- 페일 오버 : 장애 발생 시 예비 시스템으로 자동 전환되는 기능
+- Multi-AZ 배포 옵션을 통해 고가용성을 제공하며, 장애 발생 시 자동으로 페일오버를 수행함
+- 강력한 보안 및 접근 제어 기능
+- 네트워크 격리, 접근 제어, 데이터 암호화 등을 통해 신뢰할 수 있는 DB 운영 환경을 제공함
+
+RDS 데이터 복제 옵션
+- RDS는 안정적인 데이터베이스 운영을 위해 두 가지 데이터 복제 방법을 제공함
+- Multi-AZ, Read Replica
+
+Multi-AZ
+- 복제 방식 : 동기식 복제
+- 주요 목적 : 고가용성 제공 및 자동 장애 복구
+- 복제 위치 : 동일 리전 내 다른 가용 영역
+- 장애 발생 시 : 자동 페일오버
+
+Read Replica
+- 복제 방식 : 비동기식 복제
+- 주요 목적 : 조회 성능 향상 및 조회 요청 분산
+- 복제 위치 : 동일 리전 내 다른 가용 영역 또는 다른 리전
+- 장애 발생 시 : 수동 전환
+
+https://habitus92.tistory.com/16
+https://brotherjunnyitworld.tistory.com/23
+https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=GHA_failover
+https://cwal.tistory.com/76

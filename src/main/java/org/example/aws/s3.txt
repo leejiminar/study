@@ -1,0 +1,39 @@
+스토리지
+- AWS의 퍼블릭 클라우드에 데이터를 저장할 수 있음.
+- 예) S3, EBS, EFS, ...
+
+객체 스토리지
+- S3(Simple Storage Service)
+
+블록 스토리지
+- EBS(Elastic Block Store)
+
+파일 스토리지
+- EFS(Elastic File Store)
+
+S3 구성 요소
+버킷
+- 데이터를 저장하는 최상위 컨테이너
+- 특정 리전에 생성할 수 있음
+- 버킷 이름은 전세계적으로 고유해야 하며, 생성 이후 변경 불가함.
+
+객체
+- 버킷에 저장되는 개별 데이터 단위
+- 데이터와 메타데이터를 가짐
+- 각 객체는 버킷 내에서 고유한 키를 가짐.
+- 버킷 이름과 객체 키를 조합하여 식별자로 사용함.
+
+S3 객체 입출력
+- REST API (HTTP)
+- PUT : 객체를 버킷에 저장
+- GET : 버킷에서 객체를 조회
+- DELETE 버킷에서 객체 삭제
+- HEAD 객체 메타데이터 조회
+
+
+
+https://fromnowwon.tistory.com/entry/s3-ebs-efs
+https://ryan-han.com/post/aws/s3/
+https://tonylim.tistory.com/478
+https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/upload-objects.html
+https://velog.io/@ililil9482/S3-이미지-올리고-url로-접근하기-w.-CloudFront
